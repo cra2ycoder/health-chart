@@ -14,15 +14,22 @@ export default function UrineForm() {
   const today = `${year}-${month}-${day}`
 
   return (
-    <Box>
+    <Box
+      style={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+      }}
+    >
       <style jsx>{`
         .urine-form {
-          width: 85%;
-          max-width: 300px;
           display: flex;
           justify-content: space-between;
           align-items: center;
           flex-wrap: wrap;
+          padding-top: 1rem;
+          border-top: 1px solid #ccc;
         }
       `}</style>
       <form className="urine-form">
@@ -31,16 +38,17 @@ export default function UrineForm() {
           label="Date"
           type="date"
           defaultValue={today}
-          style={{ width: '100%' }}
+          disabled
+          style={{ width: '100%', marginTop: '1rem' }}
         />
         <TextField
           id="time"
           label="Time"
           type="time"
           defaultValue={curDate.toLocaleTimeString()}
-          style={{ width: '100%' }}
+          style={{ width: '100%', marginTop: '1rem' }}
         />
-        <FormControl style={{ width: '100%' }}>
+        <FormControl style={{ width: '100%', marginTop: '1rem' }}>
           <InputLabel id="urine-quantity">Quantity (ml)</InputLabel>
           <Select labelId="urine-quantity" id="urine-quantity" value={25}>
             {new Array(40).fill(undefined).map((x, id) => {
@@ -49,7 +57,11 @@ export default function UrineForm() {
             })}
           </Select>
         </FormControl>
-        <Button color="primary" variant="contained">
+        <Button
+          color="primary"
+          variant="contained"
+          style={{ marginTop: '1rem' }}
+        >
           <AddIcon />
         </Button>
       </form>
