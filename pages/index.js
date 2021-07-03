@@ -1,4 +1,3 @@
-
 export default function IndexPage() {
-  return <div>dashboard</div>;
+  return <div>dashboard</div>
 }
