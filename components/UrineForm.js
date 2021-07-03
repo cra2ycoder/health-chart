@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import Select from '@material-ui/core/Select'
@@ -7,11 +8,31 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 
-export default function UrineForm() {
+export default function UrineForm(props) {
   const curDate = new Date()
 
   const [day, month, year] = curDate.toLocaleDateString().split('/')
   const today = `${year}-${month}-${day}`
+
+  const [data, setData] = useState({
+    date: today,
+    time: curDate.toLocaleTimeString(),
+    quantity: 25,
+  })
+
+  const onTimeChange = e => {
+    data.time = e.target.value
+    setData({ ...data })
+  }
+
+  const onQuantityChange = e => {
+    data.quantity = e.target.value
+    setData({ ...data })
+  }
+
+  const submitData = () => {
+    props?.submitForm(data)
+  }
 
   return (
     <Box
@@ -37,7 +58,7 @@ export default function UrineForm() {
           id="date"
           label="Date"
           type="date"
-          defaultValue={today}
+          defaultValue={data.date}
           disabled
           style={{ width: '100%', marginTop: '1rem' }}
         />
@@ -45,12 +66,18 @@ export default function UrineForm() {
           id="time"
           label="Time"
           type="time"
-          defaultValue={curDate.toLocaleTimeString()}
+          defaultValue={data.time}
           style={{ width: '100%', marginTop: '1rem' }}
+          onChange={onTimeChange}
         />
         <FormControl style={{ width: '100%', marginTop: '1rem' }}>
           <InputLabel id="urine-quantity">Quantity (ml)</InputLabel>
-          <Select labelId="urine-quantity" id="urine-quantity" value={25}>
+          <Select
+            labelId="urine-quantity"
+            id="urine-quantity"
+            value={data.quantity}
+            onChange={onQuantityChange}
+          >
             {new Array(40).fill(undefined).map((x, id) => {
               const value = (id + 1) * 5
               return <MenuItem value={value}>{value}</MenuItem>
@@ -61,6 +88,7 @@ export default function UrineForm() {
           color="primary"
           variant="contained"
           style={{ marginTop: '1rem' }}
+          onClick={submitData}
         >
           <AddIcon />
         </Button>
