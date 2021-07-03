@@ -6,19 +6,9 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 
-function createData(time, quantity) {
-  return { time, quantity }
-}
+export default function UrineList(props) {
+  const rows = props?.list || []
 
-const rows = [
-  createData('10:10 PM', 100),
-  createData('10:10 PM', 100),
-  createData('10:10 PM', 100),
-  createData('10:10 PM', 100),
-  createData('10:10 PM', 100),
-]
-
-export default function UrineList() {
   return (
     <TableContainer component={Paper} style={{ marginBottom: '2rem' }}>
       <Table size="small">
@@ -29,7 +19,7 @@ export default function UrineList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
+          {rows?.list?.map(row => (
             <TableRow>
               <TableCell>{row.time}</TableCell>
               <TableCell>{row.quantity}</TableCell>
@@ -37,7 +27,9 @@ export default function UrineList() {
           ))}
           <TableRow>
             <TableCell colSpan={1}>Total</TableCell>
-            <TableCell>{500}</TableCell>
+            <TableCell>
+              {rows?.list?.map(x => x.quantity)?.reduce((a, b) => a + b)}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

@@ -18,6 +18,8 @@ export default function UrinePage() {
     }).then(res => {
       return res.json()
     })
+
+    mutate('/api/urine?date=today')
   }
 
   return (
@@ -37,7 +39,7 @@ export default function UrinePage() {
       >
         Urine Output:
       </Typography>
-      <UrineList />
+      <UrineList list={data} />
       <UrineForm submitForm={addUrineToList} />
     </Box>
   )
