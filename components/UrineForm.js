@@ -7,16 +7,15 @@ import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
+import { getCurrentDate } from '../utils'
 
 export default function UrineForm(props) {
-  const curDate = new Date()
-
-  const [day, month, year] = curDate.toLocaleDateString().split('/')
+  const { day, month, year, time } = getCurrentDate()
   const today = `${year}-${month}-${day}`
 
   const [data, setData] = useState({
     date: today,
-    time: curDate.toLocaleTimeString(),
+    time: time,
     quantity: 25,
   })
 

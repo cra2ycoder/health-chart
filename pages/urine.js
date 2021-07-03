@@ -1,17 +1,23 @@
-import useSwr from 'swr'
+import useSwr, { mutate } from 'swr'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import UrineList from '../components/UrineList'
 import UrineForm from '../components/UrineForm'
-import { fetcher } from '../utils'
+import { getFetcher } from '../utils'
 
 export default function UrinePage() {
-  const { data, error } = useSwr('/api/urine?date=today', fetcher, {
-    method: 'GET',
-  })
+  const { data, error } = useSwr('/api/urine?date=today', getFetcher)
 
   const addUrineToList = data => {
-    console.log({ data })
+    fetch('/api/urine?date=today', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then(res => {
+      return res.json()
+    })
   }
 
   return (
