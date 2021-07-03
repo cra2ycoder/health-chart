@@ -30,7 +30,7 @@
     "**/.editorconfig": true,
     "**/.eslintrc.json": true,
     "**/.eslintrc.base.json": true,
-    "**/**/styles.css": true,
+    // "**/**/styles.css": true,
     "globals.d.ts": true,
     ".nowignore": true,
     "**/.prettierignore/": true,
