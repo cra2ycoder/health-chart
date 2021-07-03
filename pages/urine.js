@@ -1,9 +1,19 @@
+import useSwr from 'swr'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import UrineList from '../components/UrineList'
 import UrineForm from '../components/UrineForm'
+import { fetcher } from '../utils'
 
 export default function UrinePage() {
+  const { data, error } = useSwr('/api/urine?date=today', fetcher, {
+    method: 'GET',
+  })
+
+  const addUrineToList = data => {
+    console.log({ data })
+  }
+
   return (
     <Box
       style={{
@@ -22,7 +32,7 @@ export default function UrinePage() {
         Urine Output:
       </Typography>
       <UrineList />
-      <UrineForm />
+      <UrineForm submitForm={addUrineToList} />
     </Box>
   )
 }
